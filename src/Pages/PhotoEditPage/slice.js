@@ -20,8 +20,11 @@ import {
   Card,
   Input,
   Select,
-  StepperInput,
 } from "@chakra-ui/react";
+import {
+  NumberInputField,
+  NumberInputRoot,
+} from "../../components/ui/number-input";
 import axios from "axios";
 import React, { useState } from "react";
 import "cropperjs/dist/cropper.css";
@@ -191,43 +194,56 @@ export default function Slice() {
         </Button>
       </Flex>
       {image && (
-        <>
-          {/* <StepperInput defaultValue="3" /> */}
-          <div>
-            <label>Rows:</label>
-            <input
-              type="number"
+        <Flex align="center" justify="start" mt={10} gap={10}>
+          <Flex align="center" gap={2}>
+            <Text color="#16404D" fontWeight="bold" fontSize="2xl">
+              Row :
+            </Text>
+            <NumberInputRoot
+              color="#16404D"
+              width={100}
               value={rows}
-              onChange={(e) => setRows(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Columns:</label>
-            <input
-              type="number"
+              onValueChange={(e) => setRows(e.value)}
+            >
+              <NumberInputField />
+            </NumberInputRoot>
+          </Flex>
+          <Flex align="center" gap={2}>
+            <Text color="#16404D" fontWeight="bold" fontSize="2xl">
+              Columns :
+            </Text>
+            <NumberInputRoot
+              color="#16404D"
+              width={100}
               value={cols}
-              onChange={(e) => setCols(e.target.value)}
-            />
-          </div>
-          <button onClick={splitImage}>Split Image</button>
-        </>
+              onValueChange={(e) => setCols(e.value)}
+            >
+              <NumberInputField />
+            </NumberInputRoot>
+          </Flex>
+          <Button
+            bg="#16404D"
+            color="#DDA853"
+            fontWeight="bold"
+            onClick={splitImage}
+          >
+            Split Image
+          </Button>
+        </Flex>
       )}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${cols},1fr)`,
-          gridTemplateRows: `repeat(${rows},1fr)`,
-          justifyContent: "center",
-        }}
+      <Grid
+        templateColumns={`repeat(${cols},1fr)`}
+        templateRows={`repeat(${rows},1fr)`}
+        gap={0}
+        w={600}
+        h="auto"
+        m="auto"
+        mt={10}
+        justifyContent="center"
+        alignItems="center"
       >
         {slices.map((slice, index) => (
-          <div
-            key={index}
-            style={{
-              position: "relative",
-              margin: "5px",
-            }}
-          >
+          <GridItem key={index} position="relative" margin={2}>
             <img src={slice} alt={`Slice ${index}`} style={{ width: "100%" }} />
             <a
               href={slice}
@@ -243,14 +259,14 @@ export default function Slice() {
                 borderRadius: "5px",
                 textDecoration: "none",
                 fontSize: "12px",
-                maxHeight: "25%",
+                textAlign: "center",
               }}
             >
               Download slice {index + 1}
             </a>
-          </div>
+          </GridItem>
         ))}
-      </div>
+      </Grid>
     </Box>
   );
 }
