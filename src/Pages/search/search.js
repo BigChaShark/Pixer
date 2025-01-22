@@ -228,7 +228,6 @@ export default function Search() {
       <Text color="#16404D" fontWeight="bold" fontSize="3xl">
         Find Inspired Page
       </Text>
-      <Link to="/collection">collection</Link>
       <Flex>
         <form onSubmit={handleSubmit}>
           <Input

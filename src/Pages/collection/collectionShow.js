@@ -1,7 +1,34 @@
 import axios from "axios";
+import {
+  FiEdit,
+  FiPackage,
+  FiFilter,
+  FiFolder,
+  FiMoreHorizontal,
+  HiUpload,
+} from "react-icons/fi";
+import {
+  Box,
+  Flex,
+  Icon,
+  Text,
+  VStack,
+  Grid,
+  GridItem,
+  Circle,
+  Button,
+  Card,
+  Input,
+  Select,
+  HStack,
+  Spinner,
+  Image,
+  Link,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export default function CollectionShow({ dlt, id }) {
+  const [isHover, setIsHover] = useState(false);
   const [linkImg, setLink] = useState("");
   //const [nameImg, setNameImg] = useState("");
   const hendleClick = () => {
@@ -35,10 +62,45 @@ export default function CollectionShow({ dlt, id }) {
   }, []);
 
   return (
-    <div>
-      <h1>{`Image : ${id}`}</h1>
-      <img src={linkImg} />
-      <button onClick={hendleClick}>Delete</button>
-    </div>
+    <Card.Root
+      overflow={isHover ? "none" : "hidden"}
+      boxShadow="md"
+      bg="#A6CDC6"
+      borderRadius={10}
+      h={80}
+      position={"relative"}
+    >
+      <Image
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        src={linkImg}
+        _hover={{
+          transition: "all 0.3s",
+          maxH: "none",
+          transform: "scale(2)",
+          position: "absolute",
+          zIndex: 99,
+          boxShadow: "md",
+          borderRadius: 50,
+        }}
+        h="75%"
+      />
+      <Card.Body>
+        <Card.Title
+          color="#16404D"
+          fontWeight="bold"
+        >{`Image : ${id}`}</Card.Title>
+      </Card.Body>
+      <Card.Footer>
+        <Button
+          onClick={hendleClick}
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Delete
+        </Button>
+      </Card.Footer>
+    </Card.Root>
   );
 }

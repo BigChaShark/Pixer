@@ -20,12 +20,12 @@ export default function PopularShow({ id, img, imgL }) {
       await axios.get("http://localhost:3001/img").then(async (res) => {
         const isFound = res.data.some((x) => x.id === id);
         if (!isFound) {
-          console.log("im in");
+          alert("Done");
           await axios.post("http://localhost:3001/img", {
             id: id,
           });
         } else {
-          alert("it same you have now");
+          alert("It same you have now");
           console.log("it same");
         }
       });

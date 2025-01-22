@@ -2,6 +2,20 @@ import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PopUpShow from "./popUpShow";
+import {
+  Box,
+  Flex,
+  Icon,
+  Text,
+  VStack,
+  Grid,
+  GridItem,
+  Circle,
+  Button,
+  Card,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 export default function Filltering() {
   const [imageSrc, setImageSrc] = useState(null);
   const [fSrc, setFSrc] = useState(null);
@@ -190,9 +204,10 @@ export default function Filltering() {
 
   //////Save Project
 
-  const handleUploadToCom = async () => {
+  const handleUploadToCom = async (event) => {
+    event.preventDefault();
     if (!fSrc) {
-      alert("กรุณาเลือกรูปภาพก่อน");
+      alert("Select an image first");
       return;
     }
 
@@ -210,14 +225,14 @@ export default function Filltering() {
         }
       );
       setImagePath(response.data.path);
-      saveToDB(response.data.path);
-      alert("อัปโหลดสำเร็จ!");
+      saveToDB(event, response.data.path);
     } catch (error) {
       console.error(error);
-      alert("เกิดข้อผิดพลาดในการอัปโหลด");
+      alert("Error uploading image");
     }
   };
-  const saveToDB = async (path) => {
+  const saveToDB = async (event, path) => {
+    event.preventDefault();
     try {
       const name = prompt("Project Name");
       const projectData = {
@@ -229,10 +244,10 @@ export default function Filltering() {
         filter: filterSettings,
       };
       await axios.post("http://localhost:3001/project", projectData);
-      alert("บันทึกโปรเจกต์สำเร็จ!");
+      alert("Saved to My Projects");
     } catch (error) {
       console.error(error);
-      alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      alert("Error saving to My Projects");
     }
   };
 
@@ -471,7 +486,7 @@ export default function Filltering() {
           </div>
           <div style={{ marginTop: "20px" }}>
             {/* <button onClick={handleSaveToDatabase}>Save to My Projects</button> */}
-            <button onClick={handleUploadToCom}>Save to My Projects</button>
+            <Button onClick={handleUploadToCom}>Save to My Projects</Button>
           </div>
           {console.log(rgbFilter)}
         </div>

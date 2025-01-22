@@ -47,7 +47,7 @@ export default function PhotoEditPage() {
           bg="#A6CDC6"
           borderRadius={50}
           p={5}
-          width={1090}
+          width="-webkit-fit-content"
           gap={100}
           marginBottom={40}
           align="start"
