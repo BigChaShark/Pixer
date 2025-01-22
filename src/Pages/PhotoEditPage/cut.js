@@ -93,7 +93,6 @@ export default function Cut() {
             logo
           </Text>
         </Circle>
-
         <Flex
           ml={-20}
           bg="#A6CDC6"
@@ -170,15 +169,15 @@ export default function Cut() {
           onChange={onUpload}
         />
         <Input
-          type="text"
+          color="#16404D"
           placeholder="link here"
           value={link}
+          w={300}
           onChange={(e) => setLink(e.target.value)}
-          style={{ width: "300px", marginRight: "10px" }}
         />
         <Button
           onClick={uploadFromLink}
-          ml={-8}
+          ml={-5}
           bg="#16404D"
           color="#DDA853"
           fontWeight="bold"

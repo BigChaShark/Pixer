@@ -20,6 +20,7 @@ import {
   Card,
   Input,
   Select,
+  StepperInput,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -150,23 +151,48 @@ export default function Slice() {
           </Text>
         </Flex>
       </Flex>
-      <h1>Image Cropper</h1>
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-      <input type="file" accept="image/*" onChange={onUpload} />
-      <div style={{ margin: "10px 0" }}>
+      <Text color="#16404D" fontWeight="bold" fontSize="3xl">
+        Image Slicer
+      </Text>
+      <Flex align="center" mt={10} gap={5}>
+        <Button
+          as="label"
+          htmlFor="file-upload"
+          colorScheme="teal"
+          size="lg"
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Upload File
+        </Button>
         <input
-          type="text"
+          type="file"
+          accept="image/*"
+          onChange={onUpload}
+          id="file-upload"
+          style={{ display: "none" }}
+        />
+        <Input
           placeholder="link here"
+          color="#16404D"
           value={link}
           onChange={(e) => setLink(e.target.value)}
-          style={{ width: "300px", marginRight: "10px" }}
+          w={300}
         />
-        <button onClick={uploadFromLink}>Upload with link</button>
-      </div>
+        <Button
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+          ml={-5}
+          onClick={uploadFromLink}
+        >
+          Upload with link
+        </Button>
+      </Flex>
       {image && (
         <>
+          {/* <StepperInput defaultValue="3" /> */}
           <div>
             <label>Rows:</label>
             <input
