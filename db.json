@@ -24,6 +24,23 @@
         "contrast": 1,
         "saturation": 1
       }
+    },
+    {
+      "id": 1737566081504,
+      "image": "/images/1737566079310-679175781.png",
+      "name": "Project : GG",
+      "date": "2025-01-22T17:14:41.504Z",
+      "rgb": {
+        "r": 0.3,
+        "g": 1,
+        "b": 1
+      },
+      "filter": {
+        "brightness": 1,
+        "greyscale": 0,
+        "contrast": 1,
+        "saturation": 1
+      }
     }
   ]
 }

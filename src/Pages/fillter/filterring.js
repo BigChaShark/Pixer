@@ -1,7 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PopUpShow from "./popUpShow";
+import {
+  FiEdit,
+  FiPackage,
+  FiFilter,
+  FiFolder,
+  FiMoreHorizontal,
+  HiUpload,
+} from "react-icons/fi";
+import { Slider } from "../../components/ui/slider";
 import {
   Box,
   Flex,
@@ -15,13 +24,17 @@ import {
   Card,
   Input,
   Select,
+  Separator,
 } from "@chakra-ui/react";
+
 export default function Filltering() {
+  const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState(null);
   const [fSrc, setFSrc] = useState(null);
   const [imageName, setImageName] = useState("non");
   const [rgbName, setrgbName] = useState("non");
   const [rgbFilter, setRgbFilter] = useState({ r: 1, g: 1, b: 1 });
+  const [rgbShow, setRgbShow] = useState({ r: 1, g: 1, b: 1 });
   const [rgbSample, setRgbSample] = useState({ r: 1, g: 1, b: 1 });
   const [filterSettings, setFilterSettings] = useState({
     brightness: 1,
@@ -256,6 +269,7 @@ export default function Filltering() {
       const url = location.state.project.image;
       setImageSrc(url);
       setRgbFilter(location.state.project.rgb);
+      setRgbShow(location.state.project.rgb);
       urlToFile(url, "image.jpg", "image/jpeg").then((file) => {
         setFSrc(file);
       });
@@ -328,31 +342,207 @@ export default function Filltering() {
   };
 
   return (
-    <div style={{ textAlign: "start" }}>
-      <Link to="/">Home</Link>
-      <h1>Image Filter</h1>
-      <div>
-        <h3>{`File Target : ${imageName}`}</h3>
-        <button onClick={handleImageLink}>Upload from Link</button>
-        <input type="file" accept="image/*" onChange={handleImageUpload} />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <h2>Upload Image for RGB Reference</h2>
-        <h3>{`File Target : ${rgbName}`}</h3>
-        <input type="file" accept="image/*" onChange={handleRgbImageUpload} />
-      </div>
-      <button onClick={togglePopup}>Show Pop-up</button>
+    <Box bg="#fdf8e5" minH="100vh" p={4}>
+      <Flex align="center" mb={20}>
+        <Circle size={350} bg="#A6CDC6" ml={-20} mt={-20}>
+          <Text
+            position="center"
+            fontSize="3xl"
+            fontWeight="bold"
+            color="#f0a04b"
+          >
+            logo
+          </Text>
+        </Circle>
+        <Flex
+          ml={-20}
+          bg="#A6CDC6"
+          borderRadius={50}
+          p={5}
+          width="-webkit-fit-content"
+          gap={100}
+          marginBottom={40}
+          align="center"
+          justify="start"
+        >
+          <Text color="#16404D"></Text>
+          <Box
+            display="flex"
+            flexDirection="row"
+            borderRadius={10}
+            bg="#96BAB3"
+          >
+            <Icon
+              as={FiMoreHorizontal}
+              boxSize={10}
+              color="#DDA853"
+              bg="#16404D"
+              p={2}
+              borderRadius={10}
+              alignSelf="center"
+            />
+            <Text
+              color="#16404D"
+              p={2}
+              borderRadius={10}
+              fontWeight="bold"
+              textAlign="center"
+            >
+              Filtering
+            </Text>
+          </Box>
+
+          <Text
+            cursor="pointer"
+            color="#16404D"
+            bg="#A6CDC6"
+            p={2}
+            borderRadius={10}
+            fontWeight="bold"
+            textAlign="center"
+            _hover={{ bg: "#96BAB3" }}
+            onClick={() => navigate("/")}
+          >
+            Back
+          </Text>
+        </Flex>
+      </Flex>
+
+      <Text color="#16404D" fontWeight="bold" fontSize="3xl">
+        Image Filter
+      </Text>
+      <Flex align="center" mt={5} gap={5}>
+        <Button
+          as="label"
+          htmlFor="file-upload"
+          colorScheme="teal"
+          size="lg"
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Upload File
+        </Button>
+        <input
+          type="file"
+          accept="image/*"
+          id="file-upload"
+          style={{ display: "none" }}
+          onChange={handleImageUpload}
+        />
+        <Button
+          size="lg"
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+          onClick={handleImageLink}
+        >
+          Upload from Link
+        </Button>
+        <Text
+          color={"#16404D"}
+          fontSize={"xl"}
+          fontWeight={"bold"}
+        >{`File Target : ${imageName}`}</Text>
+      </Flex>
+      <Separator mt={10} mb={10} size={"lg"} />
+      <Text color={"#16404D"} fontSize={"xl"} fontWeight={"bold"}>
+        Upload Image for RGB Reference
+      </Text>
+      <Flex align="center" mt={5} gap={5}>
+        <Button
+          as="label"
+          htmlFor="file-upload-RGB"
+          colorScheme="teal"
+          size="lg"
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Upload File
+        </Button>
+        <input
+          type="file"
+          accept="image/*"
+          id="file-upload-RGB"
+          style={{ display: "none" }}
+          onChange={handleRgbImageUpload}
+        />
+        <Button
+          size="lg"
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+          onClick={togglePopup}
+        >
+          Use Collection
+        </Button>
+        <Text
+          color={"#16404D"}
+          fontSize={"xl"}
+          fontWeight={"bold"}
+        >{`File RGB Target : ${rgbName}`}</Text>
+      </Flex>
+
       {isPopupVisible && (
-        <div style={popupStyles.overlay}>
-          <div style={popupStyles.container}>
-            <p>Collection</p>
-            <div>{makeShow(data)}</div>
-          </div>
-        </div>
+        <Box
+          display="flex"
+          position={"fixed"}
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          backgroundColor="rgba(0, 0, 0, 0.5)"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Box
+            bg={"#fdf8e5"}
+            padding="20px"
+            borderRadius="8px"
+            boxShadow="0 2px 10px rgba(0, 0, 0, 0.1)"
+            textAlign="center"
+            maxHeight="80vh"
+            width="50vw"
+            overflowY="auto"
+          >
+            <Text color={"#16404D"} fontSize={"xl"} fontWeight={"bold"}>
+              Collection
+            </Text>
+            <Grid
+              templateColumns="repeat(3, 1fr)"
+              gap={10}
+              m="auto"
+              w="80%"
+              h="auto"
+              mt={10}
+            >
+              {makeShow(data)}
+            </Grid>
+            <Button
+              mt={10}
+              size="lg"
+              bg="#16404D"
+              color="#DDA853"
+              fontWeight="bold"
+              onClick={togglePopup}
+            >
+              Cancle
+            </Button>
+          </Box>
+        </Box>
       )}
       {rgbImageSrc && (
-        <div>
-          <h2>RGB Reference Image</h2>
+        <Flex
+          align="center"
+          justify="center"
+          mt={10}
+          gap={3}
+          direction={"column"}
+        >
+          <Text color="#16404D" fontWeight="bold" fontSize="xl">
+            RGB Reference Image
+          </Text>
           <img
             src={rgbImageSrc}
             alt="RGB Reference"
@@ -364,11 +554,26 @@ export default function Filltering() {
               marginTop: "20px",
             }}
           />
-        </div>
+          <Button
+            size="lg"
+            bg="#16404D"
+            color="#DDA853"
+            fontWeight="bold"
+            onClick={handleSetRGB}
+          >
+            Set RGB
+          </Button>
+        </Flex>
       )}
-      <button onClick={handleSetRGB}>Set RGB</button>
+
       {imageSrc && (
-        <div>
+        <Flex
+          align="center"
+          justify="center"
+          mt={10}
+          gap={3}
+          direction={"column"}
+        >
           <canvas
             ref={canvasRef}
             style={{
@@ -377,46 +582,77 @@ export default function Filltering() {
               minWidth: "500px",
             }}
           />
-          <div style={{ marginTop: "10px" }}>
-            <label>
-              R:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={rgbFilter.r}
-                onChange={(e) =>
-                  setRgbFilter({ ...rgbFilter, r: parseFloat(e.target.value) })
-                }
-              />
-            </label>
-            <label>
-              G:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={rgbFilter.g}
-                onChange={(e) =>
-                  setRgbFilter({ ...rgbFilter, g: parseFloat(e.target.value) })
-                }
-              />
-            </label>
-            <label>
-              B:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={rgbFilter.b}
-                onChange={(e) =>
-                  setRgbFilter({ ...rgbFilter, b: parseFloat(e.target.value) })
-                }
-              />
-            </label>
+          <Flex
+            align="center"
+            justify="center"
+            mt={10}
+            gap={3}
+            direction={"column"}
+          >
+            <Flex gap={5}>
+              <Flex direction={"column"}>
+                <Text color="#16404D" fontWeight="bold" fontSize="xl">
+                  R : {rgbShow.r}
+                </Text>
+                <Slider
+                  value={[rgbShow.r]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  onValueChange={(e) =>
+                    setRgbShow({
+                      ...rgbShow,
+                      r: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
+                    setRgbFilter({
+                      ...rgbFilter,
+                      r: parseFloat(e.value),
+                    })
+                  }
+                />
+              </Flex>
+              <Flex direction={"column"}>
+                <Text color="#16404D" fontWeight="bold" fontSize="xl">
+                  G : {rgbFilter.g}
+                </Text>
+                <input
+                  type="range"
+                  min="0"
+                  max="2"
+                  step="0.1"
+                  value={rgbFilter.g}
+                  onChange={(e) =>
+                    setRgbFilter({
+                      ...rgbFilter,
+                      g: parseFloat(e.target.value),
+                    })
+                  }
+                />
+              </Flex>
+
+              <Flex direction={"column"}>
+                <Text color="#16404D" fontWeight="bold" fontSize="xl">
+                  B : {rgbFilter.b}
+                </Text>
+                <input
+                  type="range"
+                  min="0"
+                  max="2"
+                  step="0.1"
+                  value={rgbFilter.b}
+                  onChange={(e) =>
+                    setRgbFilter({
+                      ...rgbFilter,
+                      b: parseFloat(e.target.value),
+                    })
+                  }
+                />
+              </Flex>
+            </Flex>
+
             <br />
             <label>
               Brightness:
@@ -483,14 +719,13 @@ export default function Filltering() {
               />
             </label>
             <button onClick={handleReset}>Reset</button>
-          </div>
+          </Flex>
           <div style={{ marginTop: "20px" }}>
-            {/* <button onClick={handleSaveToDatabase}>Save to My Projects</button> */}
             <Button onClick={handleUploadToCom}>Save to My Projects</Button>
           </div>
           {console.log(rgbFilter)}
-        </div>
+        </Flex>
       )}
-    </div>
+    </Box>
   );
 }

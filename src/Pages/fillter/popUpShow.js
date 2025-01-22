@@ -1,6 +1,30 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {
+  FiEdit,
+  FiPackage,
+  FiFilter,
+  FiFolder,
+  FiMoreHorizontal,
+  HiUpload,
+} from "react-icons/fi";
 
+import {
+  Box,
+  Flex,
+  Icon,
+  Text,
+  VStack,
+  Grid,
+  GridItem,
+  Circle,
+  Button,
+  Card,
+  Input,
+  Select,
+  Separator,
+  Image,
+} from "@chakra-ui/react";
 export default function PopUpShow({ sel, id }) {
   const [linkImg, setLink] = useState("");
   const hendleClick = () => {
@@ -35,10 +59,30 @@ export default function PopUpShow({ sel, id }) {
   }, []);
 
   return (
-    <div>
-      <h1>{id}</h1>
-      <img src={linkImg} />
-      <button onClick={hendleClick}>Select</button>
-    </div>
+    <Card.Root
+      overflow="hidden"
+      boxShadow="md"
+      bg="#A6CDC6"
+      borderRadius={10}
+      h={80}
+    >
+      <Image h="75%" src={linkImg} />
+      <Card.Body>
+        <Card.Title
+          color="#16404D"
+          fontWeight="bold"
+        >{`Image : ${id}`}</Card.Title>
+      </Card.Body>
+      <Card.Footer>
+        <Button
+          onClick={hendleClick}
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Select
+        </Button>
+      </Card.Footer>
+    </Card.Root>
   );
 }
