@@ -1,45 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
 
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Input,
-  Select,
-  Separator,
-  Image,
-} from "@chakra-ui/react";
+import { Button, Card, Image } from "@chakra-ui/react";
 export default function PopUpShow({ sel, id }) {
+  //*******Variable*********//
   const [linkImg, setLink] = useState("");
+
+  //*******Funtions*********//
   const hendleClick = () => {
     sel(linkImg, id);
   };
   const fetchData = async (maxRetries = 5, delay = 2000) => {
     let attempts = 0;
     while (attempts < maxRetries) {
-      console.log(attempts);
       try {
         const response = await axios.get(
           `https://pixabay.com/api/?key=47854887-cc3e84eec372f9f1a5fac1068&id=${id}`
         );
         if (response.data.hits && response.data.hits.length > 0) {
-          console.log(response.data.hits[0].id);
           setLink(response.data.hits[0].largeImageURL);
 
           return;

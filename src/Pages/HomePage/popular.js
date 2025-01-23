@@ -1,26 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import PopularShow from "./poppularShow";
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Grid } from "@chakra-ui/react";
 export default function Popular() {
+  //*******Variable*********//
   const [popData, setPopdata] = useState([]);
+
+  //*******Funtion*********//
   const fetchData = async (maxRetries = 5, delay = 2000) => {
     let attempts = 0;
     while (attempts < maxRetries) {
-      console.log(attempts);
       try {
         const response = await axios.get(
           `https://pixabay.com/api/?key=47854887-cc3e84eec372f9f1a5fac1068&order=popular&per_page=10`
@@ -39,9 +29,6 @@ export default function Popular() {
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
   const MakeShow = (data) => {
     return data.map((x) => {
       return (
@@ -54,6 +41,10 @@ export default function Popular() {
       );
     });
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Box minH="100vh" p={4}>
       <Flex align="center" justify="center" direction="column" gap={20}>

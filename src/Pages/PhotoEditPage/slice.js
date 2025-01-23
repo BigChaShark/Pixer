@@ -1,25 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiMoreHorizontal } from "react-icons/fi";
 import {
   Box,
   Flex,
   Icon,
   Text,
-  VStack,
   Grid,
   GridItem,
   Circle,
   Button,
-  Card,
   Input,
-  Select,
 } from "@chakra-ui/react";
 import {
   NumberInputField,
@@ -29,12 +19,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import "cropperjs/dist/cropper.css";
 export default function Slice() {
+  //*******Variable*********//
   const [image, setImage] = useState(null);
   const [rows, setRows] = useState(2);
   const [cols, setCols] = useState(2);
   const [slices, setSlices] = useState([]);
   const [link, setLink] = useState("");
   const navigate = useNavigate();
+
+  //*******Function*********//
   const onUpload = (e) => {
     const file = e.target.files[0];
     if (file) {

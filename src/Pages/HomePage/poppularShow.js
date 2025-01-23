@@ -1,20 +1,11 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Image,
-} from "@chakra-ui/react";
+import { Text, VStack, Card, Image } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function PopularShow({ id, img, imgL }) {
+  //*******Variable*********//
   const [isHover, setIsHover] = useState(false);
+
+  //*******Funtion*********//
   const addCollection = async () => {
     try {
       await axios.get("http://localhost:3001/img").then(async (res) => {
@@ -26,7 +17,6 @@ export default function PopularShow({ id, img, imgL }) {
           });
         } else {
           alert("It same you have now");
-          console.log("it same");
         }
       });
     } catch (error) {

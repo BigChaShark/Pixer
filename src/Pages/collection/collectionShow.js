@@ -1,43 +1,19 @@
 import axios from "axios";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Input,
-  Select,
-  HStack,
-  Spinner,
-  Image,
-  Link,
-} from "@chakra-ui/react";
+import { Button, Card, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export default function CollectionShow({ dlt, id }) {
+  //*******Variable*********//
   const [isHover, setIsHover] = useState(false);
   const [linkImg, setLink] = useState("");
-  //const [nameImg, setNameImg] = useState("");
+
+  //*******Funtions*********//
   const hendleClick = () => {
     dlt(id);
   };
   const fetchData = async (maxRetries = 5, delay = 2000) => {
     let attempts = 0;
     while (attempts < maxRetries) {
-      console.log(attempts);
       try {
         const response = await axios.get(
           `https://pixabay.com/api/?key=47854887-cc3e84eec372f9f1a5fac1068&id=${id}`

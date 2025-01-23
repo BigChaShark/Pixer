@@ -1,36 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Input,
-  Select,
-} from "@chakra-ui/react";
-import {
-  FileUploadList,
-  FileUploadRoot,
-  FileUploadTrigger,
-} from "@chakra-ui/react";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { Box, Flex, Icon, Text, Circle, Button, Input } from "@chakra-ui/react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 export default function Cut() {
+  //*******Variable*********//
   const [image, setImage] = useState(null);
   const [cropper, setCropper] = useState(null);
   const [format, setFormat] = useState("png");
@@ -41,6 +17,7 @@ export default function Cut() {
     height: 0,
   });
 
+  //*******Function*********//
   const onUpload = (e) => {
     const file = e.target.files[0];
     if (file) {

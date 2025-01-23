@@ -1,42 +1,12 @@
-import { data, Form, Link, useNavigate } from "react-router-dom";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Input,
-  Select,
-  HStack,
-  Spinner,
-} from "@chakra-ui/react";
-import {
-  PaginationNextTrigger,
-  PaginationPageText,
-  PaginationPrevTrigger,
-  PaginationRoot,
-  PaginationItems,
-} from "../../components/ui/pagination";
+import { useNavigate } from "react-router-dom";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { Box, Flex, Icon, Text, Grid, Circle, Button } from "@chakra-ui/react";
 import CollectionShow from "./collectionShow";
 import axios from "axios";
 import { useEffect, useState } from "react";
 export default function Collection() {
+  //Data
   const [data, dataSet] = useState([]);
-  const [pixarData, pixarDataSet] = useState("");
-  const navigate = useNavigate();
   const getLocalData = async () => {
     try {
       const res = await axios.get("http://localhost:3001/img");
@@ -45,23 +15,11 @@ export default function Collection() {
       return console.log("Error" + error);
     }
   };
-  // const getPixaData = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `https://pixabay.com/api/?key=47854887-cc3e84eec372f9f1a5fac1068&id=${id}`
-  //     );
-  //     await pixarDataSet(res.data.hits[data.length].largeImageURL);
-  //   } catch (error) {
-  //     console.log("error" + error);
-  //   }
-  // };
   useEffect(() => {
     getLocalData();
   }, []);
-  // useEffect(() => {
-  //   getPixaData();
-  // }, [pixarData]);
 
+  //Delete
   const handleDeleteAll = async () => {
     try {
       let a = data.map(
@@ -83,6 +41,11 @@ export default function Collection() {
       }
     }
   };
+
+  //Navigate
+  const navigate = useNavigate();
+
+  //Show Collection
   const makeShow = (x) => {
     return x.map((x) => (
       <CollectionShow

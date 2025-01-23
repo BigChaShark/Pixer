@@ -1,11 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-} from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiEdit, FiMoreHorizontal } from "react-icons/fi";
 import {
   Box,
   Flex,
@@ -13,20 +7,15 @@ import {
   Text,
   VStack,
   Grid,
-  GridItem,
   Circle,
-  Button,
   Card,
-  Image,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 export default function PhotoEditPage() {
+  //*******Variable*********//
   const [isPhoto, setIsPhoto] = useState(false);
   const [isFI, setIsFI] = useState(false);
-  const [isFilter, setIsFilter] = useState(false);
-  const [isCL, setIsCL] = useState(false);
-  const [isPJ, setIsPJ] = useState(false);
   const navigate = useNavigate();
   return (
     <Box bg="#fdf8e5" minH="100vh" p={4}>
@@ -151,13 +140,5 @@ export default function PhotoEditPage() {
         </VStack>
       </Grid>
     </Box>
-    // <div>
-    //   <h1>Photo Edit Page</h1>
-    //   <div id="home">
-    //     <Link to="/">Home</Link>
-    //     <Link to="/cut">cut</Link>
-    //     <Link to="/slice">slice</Link>
-    //   </div>
-    // </div>
   );
 }

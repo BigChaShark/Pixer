@@ -1,38 +1,37 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PopUpShow from "./popUpShow";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
+import { FiMoreHorizontal } from "react-icons/fi";
 import { Slider } from "../../components/ui/slider";
 import {
   Box,
   Flex,
   Icon,
   Text,
-  VStack,
   Grid,
-  GridItem,
   Circle,
   Button,
-  Card,
-  Input,
-  Select,
   Separator,
-  Center,
 } from "@chakra-ui/react";
 
 export default function Filltering() {
+  //*******Variable*********//
+  //Navigate
   const navigate = useNavigate();
+
+  //Location
+  const location = useLocation();
+
+  //img Variable
   const [imageSrc, setImageSrc] = useState(null);
   const [fSrc, setFSrc] = useState(null);
   const [imageName, setImageName] = useState("non");
+  const canvasRef = useRef(null);
+  const [imagePath, setImagePath] = useState("");
+  const [rgbImageSrc, setRgbImageSrc] = useState(null);
+
+  //Filter Variable
   const [rgbName, setrgbName] = useState("non");
   const [rgbFilter, setRgbFilter] = useState({ r: 1, g: 1, b: 1 });
   const [rgbShow, setRgbShow] = useState({ r: 1, g: 1, b: 1 });
@@ -59,11 +58,12 @@ export default function Filltering() {
     },
   ];
 
-  const canvasRef = useRef(null);
-  const [rgbImageSrc, setRgbImageSrc] = useState(null);
-  const [imagePath, setImagePath] = useState("");
-  const location = useLocation();
+  //Pop up variable
+  const [data, dataSet] = useState([]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
+  //*******Funtion*********//
+  //Download
   const handleDownLoad = () => {
     const canvas = canvasRef.current;
     const dataUrl = canvas.toDataURL("image/png");
@@ -73,6 +73,7 @@ export default function Filltering() {
     link.click();
   };
 
+  //Reset Filter
   const handleResetFill = () => {
     setFilterSettings(defaultFilter[1]);
     setFilterShow(defaultFilter[1]);
@@ -86,6 +87,8 @@ export default function Filltering() {
     setRgbShow(rgbSample);
     setRgbFilter(rgbSample);
   };
+
+  //Upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     setFSrc(e.target.files[0]);
@@ -114,7 +117,7 @@ export default function Filltering() {
       setImageSrc(url);
     }
   };
-  //////EX
+  //Upload.Ref
   const handleRgbImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -128,6 +131,7 @@ export default function Filltering() {
     }
   };
 
+  //Set Filter
   const extractRgbFromImage = (imageSrcToAnalyze) => {
     const image = new Image();
     image.crossOrigin = "anonymous";
@@ -236,20 +240,16 @@ export default function Filltering() {
     };
   };
 
-  //////Save Project
-
+  //Save Project
   const handleUploadToCom = async (event) => {
     event.preventDefault();
     if (!fSrc) {
       alert("Select an image first");
       return;
     }
-
     const formData = new FormData();
     formData.append("image", fSrc);
-
     try {
-      event.preventDefault();
       const response = await axios.post(
         "http://localhost:5000/upload",
         formData,
@@ -259,7 +259,6 @@ export default function Filltering() {
           },
         }
       );
-      setImagePath(response.data.path);
       saveToDB(event, response.data.path);
     } catch (error) {
       console.error(error);
@@ -267,9 +266,7 @@ export default function Filltering() {
     }
   };
   const saveToDB = async (event, path) => {
-    event.preventDefault();
     try {
-      event.preventDefault();
       const name = prompt("Project Name");
       const projectData = {
         id: Date.now(),
@@ -308,11 +305,8 @@ export default function Filltering() {
     }
   }, [rgbFilter, imageSrc, filterSettings]);
 
-  //PopUp
-  const [data, dataSet] = useState([]);
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  //PopUp Collection
   const togglePopup = () => setIsPopupVisible(!isPopupVisible);
-
   const getLocalData = async () => {
     try {
       const res = await axios.get("http://localhost:3001/img");
@@ -329,10 +323,6 @@ export default function Filltering() {
       extractRgbFromImage(url);
     }
   };
-  useEffect(() => {
-    getLocalData();
-  }, []);
-
   const makeShow = (x) => {
     return x.map((x) => (
       <PopUpShow
@@ -343,6 +333,10 @@ export default function Filltering() {
       ></PopUpShow>
     ));
   };
+
+  useEffect(() => {
+    getLocalData();
+  }, []);
 
   return (
     <Box bg="#fdf8e5" minH="100vh" p={4}>

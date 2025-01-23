@@ -5,11 +5,8 @@ import {
   Text,
   VStack,
   Grid,
-  GridItem,
   Circle,
-  Button,
   Card,
-  Image,
 } from "@chakra-ui/react";
 import {
   FiEdit,
@@ -18,16 +15,18 @@ import {
   FiFolder,
   FiMoreHorizontal,
 } from "react-icons/fi";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import Popular from "./popular";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function Home() {
+  //*******Variable*********//
   const [isPhoto, setIsPhoto] = useState(false);
   const [isFI, setIsFI] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [isCL, setIsCL] = useState(false);
   const [isPJ, setIsPJ] = useState(false);
+  //*******Funtion*********//
   const navigate = useNavigate();
   return (
     <Box bg="#fdf8e5" minH="100vh" p={4}>
@@ -334,16 +333,5 @@ export default function Home() {
       </Grid>
       <Popular />
     </Box>
-    // <div>
-    //   <h1>Home Page</h1>
-    //   <div>
-    //     <Link to="/search">search</Link>
-    //     <Link to="/photoedit">Photo Edit</Link>
-    //     <Link to="/fillter">fillter</Link>
-    //     <Link to="/collection">collection</Link>
-    //     <Link to="/myProject">My Project</Link>
-    //   </div>
-    //   <Popular />
-    // </div>
   );
 }

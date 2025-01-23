@@ -8,7 +8,7 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
-// ตั้งค่า multer สำหรับอัปโหลดไฟล์ไปยังโฟลเดอร์ "public/images"
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(__dirname, "public/images");
@@ -25,7 +25,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Endpoint สำหรับอัปโหลดรูปภาพ
 app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
@@ -42,11 +41,11 @@ app.post("/delete", (req, res) => {
   }
 
   const fullFilePath = path.join(__dirname, "public", filePath);
-  console.log("Full file path:", fullFilePath); // Debug ดู path ที่ได้
+  console.log("Full file path:", fullFilePath); // Debug
 
   fs.access(fullFilePath, fs.constants.F_OK, (err) => {
     if (err) {
-      console.error("File not found:", fullFilePath); // Log เมื่อไฟล์ไม่เจอ
+      console.error("File not found:", fullFilePath); // Log Error
       return res.status(404).json({ error: "File not found" });
     }
 

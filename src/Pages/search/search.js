@@ -1,15 +1,8 @@
-import { data, Form, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchShow from "./searchShow";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
+import { FiMoreHorizontal } from "react-icons/fi";
 import {
   Box,
   Flex,
@@ -17,34 +10,31 @@ import {
   Text,
   VStack,
   Grid,
-  GridItem,
   Circle,
   Button,
-  Card,
   Input,
-  Select,
   HStack,
   Spinner,
 } from "@chakra-ui/react";
 import {
   PaginationNextTrigger,
-  PaginationPageText,
   PaginationPrevTrigger,
   PaginationRoot,
   PaginationItems,
 } from "../../components/ui/pagination";
 
-import { a } from "framer-motion/client";
-import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 export default function Search() {
+  //*******Variable*********//
+  //Navigate
   const navigate = useNavigate();
+
+  //API PixarBay variable
   const [page, setPage] = useState(1);
   const [onLoad, setOnLoad] = useState(false);
   const [totalHits, setTotalHits] = useState(0);
-  //api
   const [pixarData, pixarDataSet] = useState([]);
 
-  //search
+  //Search Variable
   const [inputValue, setInputValue] = useState("");
   const [selectedColorsOption, setSelectedColorsOption] = useState("");
   const [colorsOptions] = useState([
@@ -58,7 +48,8 @@ export default function Search() {
   const [selectedImgTypeOption, setSelectedImgTypeOption] = useState("");
   const [ImageTypeOptions] = useState(["photo", "illustration", "vector"]);
 
-  //api (fetch)
+  //*******Function*********//
+  //API Fetch
   const fetchData = async (
     maxRetries = 5,
     delay = 2000,
@@ -79,7 +70,7 @@ export default function Search() {
         if (response.data.hits && response.data.hits.length > 0) {
           setTotalHits(response.data.totalHits);
           pixarDataSet(response.data.hits);
-          console.log(pixarData);
+
           return;
         } else {
           window.alert("No RS pleas type AG");
@@ -100,7 +91,7 @@ export default function Search() {
     fetchData();
   }, []);
 
-  //search
+  //Set Search Filter
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -125,8 +116,6 @@ export default function Search() {
 
   //Show Data
   const MakeShow = (data) => {
-    console.log("is  " + data.length);
-
     return data.map((x) => {
       return <SearchShow key={x.id} id={x.id} img={x.largeImageURL} />;
     });

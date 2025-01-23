@@ -1,45 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { data } from "react-router-dom";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
-import {
-  Box,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  Circle,
-  Button,
-  Card,
-  Input,
-  Select,
-  Image,
-  CardBody,
-} from "@chakra-ui/react";
+import { Button, Card, Image } from "@chakra-ui/react";
 
 export default function SearchShow({ id, img }) {
+  //*******Variable*********//
   const [isHover, setIsHover] = useState(false);
+  //*******Funtion*********//
   const addCollection = async () => {
     try {
       await axios.get("http://localhost:3001/img").then(async (res) => {
         const isFound = res.data.some((x) => x.id === id);
         if (!isFound) {
-          console.log("im in");
           await axios.post("http://localhost:3001/img", {
             id: id,
           });
+          alert("Add to collection");
         } else {
           alert("it same you have now");
-          console.log("it same");
         }
       });
     } catch (error) {

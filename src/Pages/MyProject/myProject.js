@@ -1,44 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-  HiUpload,
-} from "react-icons/fi";
+import { FiMoreHorizontal } from "react-icons/fi";
 import {
   Box,
   Flex,
   Icon,
   Text,
-  VStack,
   Grid,
-  GridItem,
   Circle,
   Button,
   Card,
-  Input,
-  Select,
-  HStack,
-  Spinner,
   Image,
 } from "@chakra-ui/react";
-import {
-  PaginationNextTrigger,
-  PaginationPageText,
-  PaginationPrevTrigger,
-  PaginationRoot,
-  PaginationItems,
-} from "../../components/ui/pagination";
+
 export default function MyProject() {
-  const ax = require("axios");
+  //*******Variable*********//
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
+  const navigate = useNavigate();
+
+  //*******Funtion*********//
   const handleEditProject = (project) => {
     navigate("/fillter", { state: { project } });
   };
@@ -70,7 +52,6 @@ export default function MyProject() {
           fetchProjects();
         })
         .catch((error) => {
-          console.log(path);
           console.error("Error deleting image:", error);
         });
     }
