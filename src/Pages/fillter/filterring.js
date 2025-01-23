@@ -25,6 +25,7 @@ import {
   Input,
   Select,
   Separator,
+  Center,
 } from "@chakra-ui/react";
 
 export default function Filltering() {
@@ -37,6 +38,12 @@ export default function Filltering() {
   const [rgbShow, setRgbShow] = useState({ r: 1, g: 1, b: 1 });
   const [rgbSample, setRgbSample] = useState({ r: 1, g: 1, b: 1 });
   const [filterSettings, setFilterSettings] = useState({
+    brightness: 1,
+    greyscale: 0,
+    contrast: 1,
+    saturation: 1,
+  });
+  const [filterShow, setFilterShow] = useState({
     brightness: 1,
     greyscale: 0,
     contrast: 1,
@@ -57,12 +64,26 @@ export default function Filltering() {
   const [imagePath, setImagePath] = useState("");
   const location = useLocation();
 
-  const handleReset = () => {
-    setRgbFilter(defaultFilter[0]);
+  const handleDownLoad = () => {
+    const canvas = canvasRef.current;
+    const dataUrl = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "edited-image.png";
+    link.click();
+  };
+
+  const handleResetFill = () => {
     setFilterSettings(defaultFilter[1]);
+    setFilterShow(defaultFilter[1]);
+  };
+  const handleResetRGB = () => {
+    setRgbFilter(defaultFilter[0]);
+    setRgbShow(defaultFilter[0]);
   };
 
   const handleSetRGB = () => {
+    setRgbShow(rgbSample);
     setRgbFilter(rgbSample);
   };
   const handleImageUpload = (e) => {
@@ -228,6 +249,7 @@ export default function Filltering() {
     formData.append("image", fSrc);
 
     try {
+      event.preventDefault();
       const response = await axios.post(
         "http://localhost:5000/upload",
         formData,
@@ -247,6 +269,7 @@ export default function Filltering() {
   const saveToDB = async (event, path) => {
     event.preventDefault();
     try {
+      event.preventDefault();
       const name = prompt("Project Name");
       const projectData = {
         id: Date.now(),
@@ -270,6 +293,8 @@ export default function Filltering() {
       setImageSrc(url);
       setRgbFilter(location.state.project.rgb);
       setRgbShow(location.state.project.rgb);
+      setFilterSettings(location.state.project.filter);
+      setFilterShow(location.state.project.filter);
       urlToFile(url, "image.jpg", "image/jpeg").then((file) => {
         setFSrc(file);
       });
@@ -307,29 +332,7 @@ export default function Filltering() {
   useEffect(() => {
     getLocalData();
   }, []);
-  const popupStyles = {
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    container: {
-      backgroundColor: "#fff",
-      padding: "20px",
-      borderRadius: "8px",
-      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-      textAlign: "center",
-      maxHeight: "80vh",
-      width: "50vw",
-      overflowY: "auto",
-    },
-  };
+
   const makeShow = (x) => {
     return x.map((x) => (
       <PopUpShow
@@ -389,6 +392,33 @@ export default function Filltering() {
               textAlign="center"
             >
               Filtering
+            </Text>
+          </Box>
+
+          <Box
+            display="flex"
+            flexDirection="row"
+            borderRadius={10}
+            _hover={{ bg: "#96BAB3", cursor: "pointer" }}
+            onClick={() => navigate("/myProject")}
+          >
+            <Icon
+              as={FiMoreHorizontal}
+              boxSize={10}
+              color="#DDA853"
+              bg="#16404D"
+              p={2}
+              borderRadius={10}
+              alignSelf="center"
+            />
+            <Text
+              color="#16404D"
+              p={2}
+              borderRadius={10}
+              fontWeight="bold"
+              textAlign="center"
+            >
+              My Project
             </Text>
           </Box>
 
@@ -534,45 +564,55 @@ export default function Filltering() {
       )}
       {rgbImageSrc && (
         <Flex
-          align="center"
+          align="start"
           justify="center"
           mt={10}
           gap={3}
           direction={"column"}
+          ml={10}
         >
-          <Text color="#16404D" fontWeight="bold" fontSize="xl">
-            RGB Reference Image
-          </Text>
-          <img
-            src={rgbImageSrc}
-            alt="RGB Reference"
-            style={{
-              maxWidth: "800px",
-              minWidth: "500px",
-              height: "auto",
-              border: "1px solid black",
-              marginTop: "20px",
-            }}
-          />
-          <Button
-            size="lg"
-            bg="#16404D"
-            color="#DDA853"
-            fontWeight="bold"
-            onClick={handleSetRGB}
+          <Flex
+            bg={"#A6CDC6"}
+            direction={"column"}
+            p={5}
+            borderRadius={25}
+            gap={2}
           >
-            Set RGB
-          </Button>
+            {" "}
+            <Text color="#16404D" fontWeight="bold" fontSize="xl">
+              RGB Reference Image
+            </Text>
+            <img
+              src={rgbImageSrc}
+              alt="RGB Reference"
+              style={{
+                maxWidth: "250px",
+                minWidth: "250px",
+                height: "auto",
+                border: "1px solid black",
+                marginTop: "20px",
+              }}
+            />
+            <Button
+              size="lg"
+              bg="#16404D"
+              color="#DDA853"
+              fontWeight="bold"
+              onClick={handleSetRGB}
+            >
+              Set RGB
+            </Button>
+          </Flex>
         </Flex>
       )}
 
       {imageSrc && (
         <Flex
           align="center"
-          justify="center"
+          justify="space-evenly"
           mt={10}
-          gap={3}
-          direction={"column"}
+          gap={10}
+          direction={"row"}
         >
           <canvas
             ref={canvasRef}
@@ -586,20 +626,48 @@ export default function Filltering() {
             align="center"
             justify="center"
             mt={10}
-            gap={3}
+            gap={10}
             direction={"column"}
           >
-            <Flex gap={5}>
-              <Flex direction={"column"}>
-                <Text color="#16404D" fontWeight="bold" fontSize="xl">
-                  R : {rgbShow.r}
-                </Text>
+            <Flex
+              gap={5}
+              bg="#A6CDC6"
+              borderRadius={50}
+              p={5}
+              width="-webkit-fit-content"
+              boxShadow="md"
+              justify={"center"}
+              align={"center"}
+            >
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 50%, white 50%)"
+                  width="50%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"15%"} color={"white"}>{`R`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${rgbShow.r.toFixed(1)}`}
+                  </Text>
+                </Flex>
                 <Slider
                   value={[rgbShow.r]}
                   step={0.1}
                   min={0}
                   max={2}
                   w={200}
+                  colorPalette="red"
                   onValueChange={(e) =>
                     setRgbShow({
                       ...rgbShow,
@@ -614,116 +682,300 @@ export default function Filltering() {
                   }
                 />
               </Flex>
-              <Flex direction={"column"}>
-                <Text color="#16404D" fontWeight="bold" fontSize="xl">
-                  G : {rgbFilter.g}
-                </Text>
-                <input
-                  type="range"
-                  min="0"
-                  max="2"
-                  step="0.1"
-                  value={rgbFilter.g}
-                  onChange={(e) =>
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 50%, white 50%)"
+                  width="50%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"15%"} color={"white"}>{`G`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${rgbShow.g.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[rgbShow.g]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="green"
+                  onValueChange={(e) =>
+                    setRgbShow({
+                      ...rgbShow,
+                      g: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
                     setRgbFilter({
                       ...rgbFilter,
-                      g: parseFloat(e.target.value),
+                      g: parseFloat(e.value),
                     })
                   }
                 />
               </Flex>
 
-              <Flex direction={"column"}>
-                <Text color="#16404D" fontWeight="bold" fontSize="xl">
-                  B : {rgbFilter.b}
-                </Text>
-                <input
-                  type="range"
-                  min="0"
-                  max="2"
-                  step="0.1"
-                  value={rgbFilter.b}
-                  onChange={(e) =>
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 50%, white 50%)"
+                  width="50%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"15%"} color={"white"}>{`B`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${rgbShow.b.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[rgbShow.b]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="blue"
+                  onValueChange={(e) =>
+                    setRgbShow({
+                      ...rgbShow,
+                      b: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
                     setRgbFilter({
                       ...rgbFilter,
-                      b: parseFloat(e.target.value),
+                      b: parseFloat(e.value),
                     })
                   }
                 />
               </Flex>
+              <Button onClick={handleResetRGB}>Reset</Button>
             </Flex>
-
-            <br />
-            <label>
-              Brightness:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={filterSettings.brightness}
-                onChange={(e) =>
-                  setFilterSettings({
-                    ...filterSettings,
-                    brightness: parseFloat(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Greyscale:
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={filterSettings.greyscale}
-                onChange={(e) =>
-                  setFilterSettings({
-                    ...filterSettings,
-                    greyscale: parseFloat(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Contrast:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={filterSettings.contrast}
-                onChange={(e) =>
-                  setFilterSettings({
-                    ...filterSettings,
-                    contrast: parseFloat(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Saturation:
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="0.1"
-                value={filterSettings.saturation}
-                onChange={(e) =>
-                  setFilterSettings({
-                    ...filterSettings,
-                    saturation: parseFloat(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <button onClick={handleReset}>Reset</button>
+            <Flex
+              gap={5}
+              bg="#A6CDC6"
+              borderRadius={50}
+              p={5}
+              width="-webkit-fit-content"
+              boxShadow="md"
+              justify={"center"}
+              align={"center"}
+            >
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 65%, white 50%)"
+                  width="100%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"5%"} color={"white"}>{`Brightness`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${filterShow.brightness.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[filterShow.brightness]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="white"
+                  onValueChange={(e) =>
+                    setFilterShow({
+                      ...filterShow,
+                      brightness: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
+                    setFilterSettings({
+                      ...filterSettings,
+                      brightness: parseFloat(e.value),
+                    })
+                  }
+                />
+              </Flex>
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 65%, white 50%)"
+                  width="100%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"5%"} color={"white"}>{`Greyscale`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${filterShow.greyscale.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[filterShow.greyscale]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="white"
+                  onValueChange={(e) =>
+                    setFilterShow({
+                      ...filterShow,
+                      greyscale: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
+                    setFilterSettings({
+                      ...filterSettings,
+                      greyscale: parseFloat(e.value),
+                    })
+                  }
+                />
+              </Flex>
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 65%, white 50%)"
+                  width="100%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"5%"} color={"white"}>{`Contrast`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${filterShow.contrast.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[filterShow.contrast]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="white"
+                  onValueChange={(e) =>
+                    setFilterShow({
+                      ...filterShow,
+                      contrast: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
+                    setFilterSettings({
+                      ...filterSettings,
+                      contrast: parseFloat(e.value),
+                    })
+                  }
+                />
+              </Flex>
+              <Flex direction={"column"} gap={3}>
+                <Flex
+                  color="#16404D"
+                  fontWeight="bold"
+                  fontSize="xl"
+                  background="linear-gradient(to right, black 65%, white 50%)"
+                  width="100%"
+                  h="-moz-fit-content"
+                  pr={2}
+                  pl={2}
+                  borderRadius={50}
+                  textAlign="center"
+                  alignItems={"center"}
+                  justify={"space-between"}
+                  boxShadow="md"
+                >
+                  <Text pb={0.5} ml={"5%"} color={"white"}>{`Saturation`}</Text>
+                  <Text pb={0.5} mr={"5%"}>
+                    {" "}
+                    {`${filterShow.saturation.toFixed(1)}`}
+                  </Text>
+                </Flex>
+                <Slider
+                  value={[filterShow.saturation]}
+                  step={0.1}
+                  min={0}
+                  max={2}
+                  w={200}
+                  colorPalette="white"
+                  onValueChange={(e) =>
+                    setFilterShow({
+                      ...filterShow,
+                      saturation: parseFloat(e.value),
+                    })
+                  }
+                  onValueChangeEnd={(e) =>
+                    setFilterSettings({
+                      ...filterSettings,
+                      saturation: parseFloat(e.value),
+                    })
+                  }
+                />
+              </Flex>
+              <Button onClick={handleResetFill}>Reset</Button>
+            </Flex>
+            <Flex gap={5}>
+              <Button
+                size="lg"
+                bg="#16404D"
+                color="#DDA853"
+                fontWeight="bold"
+                onClick={handleUploadToCom}
+              >
+                Save to My Projects
+              </Button>
+              <Button
+                size="lg"
+                bg="#16404D"
+                color="#DDA853"
+                fontWeight="bold"
+                onClick={handleDownLoad}
+              >
+                Download
+              </Button>
+            </Flex>
           </Flex>
-          <div style={{ marginTop: "20px" }}>
-            <Button onClick={handleUploadToCom}>Save to My Projects</Button>
-          </div>
-          {console.log(rgbFilter)}
         </Flex>
       )}
     </Box>

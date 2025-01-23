@@ -7,40 +7,5 @@
       "id": 3605547
     }
   ],
-  "project": [
-    {
-      "id": 1737556886637,
-      "image": "/images/1737556885327-300595331.png",
-      "name": "Project : aads",
-      "date": "2025-01-22T14:41:26.637Z",
-      "rgb": {
-        "r": 1,
-        "g": 1,
-        "b": 1
-      },
-      "filter": {
-        "brightness": 1,
-        "greyscale": 0,
-        "contrast": 1,
-        "saturation": 1
-      }
-    },
-    {
-      "id": 1737566081504,
-      "image": "/images/1737566079310-679175781.png",
-      "name": "Project : GG",
-      "date": "2025-01-22T17:14:41.504Z",
-      "rgb": {
-        "r": 0.3,
-        "g": 1,
-        "b": 1
-      },
-      "filter": {
-        "brightness": 1,
-        "greyscale": 0,
-        "contrast": 1,
-        "saturation": 1
-      }
-    }
-  ]
+  "project": []
 }
