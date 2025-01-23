@@ -13,7 +13,7 @@ import {
   Card,
   Image,
 } from "@chakra-ui/react";
-
+import Pixer from "../../Logo/PixerLogo.png";
 export default function MyProject() {
   //*******Variable*********//
   const [projects, setProjects] = useState([]);
@@ -64,16 +64,29 @@ export default function MyProject() {
   return (
     <Box bg="#fdf8e5" minH="100vh" p={4}>
       <Flex align="center" mb={20}>
-        <Circle size={350} bg="#A6CDC6" ml={-20} mt={-20}>
-          <Text
-            position="center"
-            fontSize="3xl"
-            fontWeight="bold"
-            color="#f0a04b"
-          >
-            logo
-          </Text>
+        <Circle
+          size={350}
+          bg="#A6CDC6"
+          ml={-20}
+          mt={-20}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          position={"absolute"}
+          zIndex={3}
+        >
+          <Image ml={5} mt={8} h={"70%"} src={Pixer} />
         </Circle>
+        <Circle
+          size={350}
+          bg="#A6CDC6"
+          ml={-20}
+          mt={-20}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          boxShadow={"md"}
+        ></Circle>
         <Flex
           ml={-20}
           bg="#A6CDC6"
@@ -82,8 +95,8 @@ export default function MyProject() {
           width="-webkit-fit-content"
           gap={100}
           marginBottom={40}
-          align="center"
-          justify="start"
+          align="start"
+          boxShadow={"md"}
         >
           <Text color="#16404D"></Text>
           <Box

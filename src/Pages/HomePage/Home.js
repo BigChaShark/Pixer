@@ -7,6 +7,7 @@ import {
   Grid,
   Circle,
   Card,
+  Image,
 } from "@chakra-ui/react";
 import {
   FiEdit,
@@ -19,6 +20,7 @@ import { useState } from "react";
 import React from "react";
 import Popular from "./popular";
 import { useNavigate } from "react-router-dom";
+import Pixer from "../../Logo/PixerLogo.png";
 export default function Home() {
   //*******Variable*********//
   const [isPhoto, setIsPhoto] = useState(false);
@@ -31,17 +33,29 @@ export default function Home() {
   return (
     <Box bg="#fdf8e5" minH="100vh" p={4}>
       <Flex align="center" mb={20}>
-        <Circle size={350} bg="#A6CDC6" ml={-20} mt={-20}>
-          <Text
-            position="center"
-            fontSize="3xl"
-            fontWeight="bold"
-            color="#f0a04b"
-          >
-            logo
-          </Text>
+        <Circle
+          size={350}
+          bg="#A6CDC6"
+          ml={-20}
+          mt={-20}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          position={"absolute"}
+          zIndex={3}
+        >
+          <Image ml={5} mt={8} h={"70%"} src={Pixer} />
         </Circle>
-        {/* เมนู */}
+        <Circle
+          size={350}
+          bg="#A6CDC6"
+          ml={-20}
+          mt={-20}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          boxShadow={"md"}
+        ></Circle>
         <Flex
           ml={-20}
           bg="#A6CDC6"
@@ -51,6 +65,7 @@ export default function Home() {
           gap={100}
           marginBottom={40}
           align="start"
+          boxShadow={"md"}
         >
           <Text color="#16404D"></Text>
           <Text
