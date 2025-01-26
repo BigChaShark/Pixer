@@ -20,7 +20,14 @@ import { useState } from "react";
 import React from "react";
 import Popular from "./popular";
 import { useNavigate } from "react-router-dom";
-import Pixer from "../../Logo/PixerLogo.png";
+import {
+  Pixer,
+  colIcon,
+  filterIcon,
+  findIcon,
+  myProIcon,
+  photoEditIcon,
+} from "../../Logo/logo";
 export default function Home() {
   //*******Variable*********//
   const [isPhoto, setIsPhoto] = useState(false);
@@ -155,7 +162,7 @@ export default function Home() {
             onClick={() => navigate("/photoedit")}
           >
             <Icon
-              as={FiEdit}
+              as={photoEditIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"
@@ -196,7 +203,7 @@ export default function Home() {
             onClick={() => navigate("/search")}
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={findIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"
@@ -237,7 +244,7 @@ export default function Home() {
             onClick={() => navigate("/fillter")}
           >
             <Icon
-              as={FiFilter}
+              as={filterIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"
@@ -278,7 +285,7 @@ export default function Home() {
             onClick={() => navigate("/collection")}
           >
             <Icon
-              as={FiPackage}
+              as={colIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"
@@ -319,7 +326,7 @@ export default function Home() {
             onClick={() => navigate("/myProject")}
           >
             <Icon
-              as={FiFolder}
+              as={myProIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"

@@ -11,7 +11,7 @@ import {
   Card,
   Image,
 } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, cutIcon, sliceIcon } from "../../Logo/logo";
 import { useState } from "react";
 import React from "react";
 export default function PhotoEditPage() {
@@ -87,7 +87,7 @@ export default function PhotoEditPage() {
             onClick={() => navigate("/cut")}
           >
             <Icon
-              as={FiEdit}
+              as={cutIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"
@@ -127,7 +127,7 @@ export default function PhotoEditPage() {
             onClick={() => navigate("/slice")}
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={sliceIcon}
               boxSize={20}
               color="#DDA853"
               bg="#16404D"

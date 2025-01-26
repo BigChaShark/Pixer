@@ -13,7 +13,7 @@ import {
   Card,
   Image,
 } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, myProIcon } from "../../Logo/logo";
 export default function MyProject() {
   //*******Variable*********//
   const [projects, setProjects] = useState([]);
@@ -106,7 +106,7 @@ export default function MyProject() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={myProIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

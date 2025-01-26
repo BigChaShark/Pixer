@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { Box, Flex, Icon, Text, Circle, Button, Input } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, cutIcon } from "../../Logo/logo";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 export default function Cut() {
@@ -106,7 +106,7 @@ export default function Cut() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={cutIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

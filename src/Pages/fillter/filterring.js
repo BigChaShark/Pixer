@@ -14,7 +14,7 @@ import {
   Button,
   Separator,
 } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, filterIcon } from "../../Logo/logo";
 export default function Filltering() {
   //*******Variable*********//
   //Navigate
@@ -386,7 +386,7 @@ export default function Filltering() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={filterIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

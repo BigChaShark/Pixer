@@ -11,7 +11,7 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, sliceIcon } from "../../Logo/logo";
 import {
   NumberInputField,
   NumberInputRoot,
@@ -130,7 +130,7 @@ export default function Slice() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={sliceIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

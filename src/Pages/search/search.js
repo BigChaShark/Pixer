@@ -17,7 +17,7 @@ import {
   Spinner,
   Image,
 } from "@chakra-ui/react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, findIcon, colIcon } from "../../Logo/logo";
 import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
@@ -168,7 +168,7 @@ export default function Search() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={findIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"
@@ -195,7 +195,7 @@ export default function Search() {
             onClick={() => navigate("/collection")}
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={colIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

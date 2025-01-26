@@ -13,7 +13,7 @@ import {
 import CollectionShow from "./collectionShow";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Pixer from "../../Logo/PixerLogo.png";
+import { Pixer, colIcon } from "../../Logo/logo";
 export default function Collection() {
   //Data
   const [data, dataSet] = useState([]);
@@ -111,7 +111,7 @@ export default function Collection() {
             bg="#96BAB3"
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={colIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"
