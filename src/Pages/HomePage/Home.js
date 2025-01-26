@@ -9,13 +9,6 @@ import {
   Card,
   Image,
 } from "@chakra-ui/react";
-import {
-  FiEdit,
-  FiPackage,
-  FiFilter,
-  FiFolder,
-  FiMoreHorizontal,
-} from "react-icons/fi";
 import { useState } from "react";
 import React from "react";
 import Popular from "./popular";

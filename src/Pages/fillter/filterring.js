@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PopUpShow from "./popUpShow";
-import { FiMoreHorizontal } from "react-icons/fi";
 import { Slider } from "../../components/ui/slider";
 import {
   Box,
@@ -14,7 +13,7 @@ import {
   Button,
   Separator,
 } from "@chakra-ui/react";
-import { Pixer, filterIcon } from "../../Logo/logo";
+import { Pixer, filterIcon, myProIcon } from "../../Logo/logo";
 export default function Filltering() {
   //*******Variable*********//
   //Navigate
@@ -413,7 +412,7 @@ export default function Filltering() {
             onClick={() => navigate("/myProject")}
           >
             <Icon
-              as={FiMoreHorizontal}
+              as={myProIcon}
               boxSize={10}
               color="#DDA853"
               bg="#16404D"

@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import SearchShow from "./searchShow";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FiMoreHorizontal } from "react-icons/fi";
 import {
   Box,
   Flex,

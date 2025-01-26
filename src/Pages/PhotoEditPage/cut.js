@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
-import { FiMoreHorizontal } from "react-icons/fi";
 import { Box, Flex, Icon, Text, Circle, Button, Input } from "@chakra-ui/react";
 import { Pixer, cutIcon } from "../../Logo/logo";
 import Cropper from "react-cropper";
