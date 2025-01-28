@@ -7,7 +7,7 @@ const colIcon = createIcon({
   path: (
     <path
       fill="currentColor"
-      class="clr-i-outline clr-i-outline-path-1"
+      className="clr-i-outline clr-i-outline-path-1"
       d="M32.43,8.35l-13-6.21a1,1,0,0,0-.87,0l-15,7.24a1,1,0,0,0-.57.9V26.83a1,1,0,0,0,.6.92l13,6.19a1,1,0,0,0,.87,0l15-7.24a1,1,0,0,0,.57-.9V9.25A1,1,0,0,0,32.43,8.35ZM19,4.15,29.93,9.37l-5.05,2.44L14.21,6.46ZM17,15.64,6,10.41l5.9-2.85L22.6,12.91ZM5,12.13,16,17.4V31.46L5,26.2ZM18,31.45V17.36l13-6.29v14.1Z"
     />
   ),
@@ -101,9 +101,9 @@ const myProIcon = createIcon({
     <path
       d="M13.6136 15.3473L17.8651 10.9766L21 13.9844M6.96484 19L11.9688 13.9766L17.9727 19M9.96875 9.97656C9.96875 11.0811 9.07332 11.9766 7.96875 11.9766C6.86418 11.9766 5.96875 11.0811 5.96875 9.97656C5.96875 8.87199 6.86418 7.97656 7.96875 7.97656C9.07332 7.97656 9.96875 8.87199 9.96875 9.97656ZM12.0627 6.06274L11.9373 5.93726C11.5914 5.59135 11.4184 5.4184 11.2166 5.29472C11.0376 5.18506 10.8425 5.10425 10.6385 5.05526C10.4083 5 10.1637 5 9.67452 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V10.2C21 9.0799 21 8.51984 20.782 8.09202C20.5903 7.71569 20.2843 7.40973 19.908 7.21799C19.4802 7 18.9201 7 17.8 7H14.3255C13.8363 7 13.5917 7 13.3615 6.94474C13.1575 6.89575 12.9624 6.81494 12.7834 6.70528C12.5816 6.5816 12.4086 6.40865 12.0627 6.06274Z"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       fill="none"
     />
   ),
@@ -113,11 +113,11 @@ const photoEditIcon = createIcon({
   viewBox: "0 0 24 24",
   path: (
     <>
-      <g id="SVGRepo_bgCarrier" stroke-width="0" />
+      <g id="SVGRepo_bgCarrier" strokeWidth="0" />
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -125,33 +125,33 @@ const photoEditIcon = createIcon({
           fill="none"
           d="M7 11C8.10457 11 9 10.1046 9 9C9 7.89543 8.10457 7 7 7C5.89543 7 5 7.89543 5 9C5 10.1046 5.89543 11 7 11Z"
           stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />{" "}
         <path
           fill="none"
           d="M5.56055 21C11.1305 11.1 15.7605 9.35991 21.0005 15.7899"
           stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />{" "}
         <path
           fill="none"
           d="M14.35 3H5C3.93913 3 2.92172 3.42136 2.17157 4.17151C1.42142 4.92165 1 5.93913 1 7V17C1 18.0609 1.42142 19.0782 2.17157 19.8284C2.92172 20.5785 3.93913 21 5 21H17C18.0609 21 19.0783 20.5785 19.8284 19.8284C20.5786 19.0782 21 18.0609 21 17V9"
           stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />{" "}
         <path
           fill="none"
           d="M22.3098 3.16996L17.2098 8.26005C16.7098 8.77005 15.2098 8.99996 14.8698 8.66996C14.5298 8.33996 14.7598 6.82999 15.2698 6.31999L20.3599 1.23002C20.6171 0.964804 20.9692 0.812673 21.3386 0.807047C21.7081 0.80142 22.0646 0.942731 22.3298 1.19999C22.5951 1.45725 22.7472 1.8093 22.7529 2.17875C22.7585 2.5482 22.6171 2.90475 22.3599 3.16996H22.3098Z"
           stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />{" "}
       </g>
     </>
@@ -164,9 +164,9 @@ const sliceIcon = createIcon({
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="3.175"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="3.175"
       d="M22.952 10.715H10.715v29.369h12.237m0-34.264v39.16m-12.237-7.344L22.952 25.4m7.342 14.684h9.79V10.715h-9.79m0 17.132 9.79 12.237"
     />
   ),

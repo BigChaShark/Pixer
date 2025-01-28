@@ -38,6 +38,7 @@ export default function PopularShow({ id, img, imgL }) {
         <Image
           alt={`${imgL}`}
           src={`${imgL}`}
+          bg={"blackAlpha.800"}
           maxH={100}
           w={"100%"}
           onMouseEnter={() => setIsHover(true)}

@@ -265,6 +265,7 @@ export default function Filltering() {
     }
   };
   const saveToDB = async (event, path) => {
+    event.preventDefault();
     try {
       const name = prompt("Project Name");
       const projectData = {
@@ -341,10 +342,25 @@ export default function Filltering() {
     <Box bg="#fdf8e5" minH="100vh" p={4}>
       <Flex align="center" mb={20}>
         <Circle
-          size={350}
+          size={{
+            base: 150,
+            sm: 150,
+            md: 250,
+            lg: 350,
+          }}
           bg="#A6CDC6"
-          ml={-20}
-          mt={-20}
+          ml={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
+          mt={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
@@ -357,17 +373,48 @@ export default function Filltering() {
           />
         </Circle>
         <Circle
-          size={350}
+          size={{
+            base: 150,
+            sm: 150,
+            md: 250,
+            lg: 350,
+          }}
           bg="#A6CDC6"
-          ml={-20}
-          mt={-20}
+          ml={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
+          mt={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
           boxShadow={"md"}
         ></Circle>
+        <Text
+          display={{ base: "flex", sm: "flex", md: "flex", lg: "none" }}
+          cursor="pointer"
+          color="#16404D"
+          bg="#A6CDC6"
+          ml={5}
+          p={2}
+          borderRadius={10}
+          fontWeight="bold"
+          textAlign="center"
+          _hover={{ bg: "#96BAB3" }}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </Text>
         <Flex
           ml={-20}
+          display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           bg="#A6CDC6"
           borderRadius={50}
           p={5}

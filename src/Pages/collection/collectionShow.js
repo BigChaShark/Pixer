@@ -43,23 +43,26 @@ export default function CollectionShow({ dlt, id }) {
       boxShadow="md"
       bg="#A6CDC6"
       borderRadius={10}
-      h={80}
+      h={"100%"}
+      alignItems={"center"}
       position={"relative"}
     >
       <Image
+        w={"100%"}
+        maxH={200}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         src={linkImg}
         _hover={{
           transition: "all 0.3s",
           maxH: "none",
+          maxW: "60%",
           transform: "scale(2)",
           position: "absolute",
           zIndex: 99,
           boxShadow: "md",
           borderRadius: 50,
         }}
-        h="75%"
       />
       <Card.Body>
         <Card.Title

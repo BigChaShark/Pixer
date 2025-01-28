@@ -126,30 +126,91 @@ export default function Search() {
     <Box bg="#fdf8e5" minH="100vh" p={4}>
       <Flex align="center" mb={20}>
         <Circle
-          size={350}
+          size={{
+            base: 150,
+            sm: 150,
+            md: 250,
+            lg: 350,
+          }}
           bg="#A6CDC6"
-          ml={-20}
-          mt={-20}
+          ml={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
+          mt={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
           position={"absolute"}
           zIndex={3}
         >
-          <Image ml={5} mt={8} h={"70%"} src={Pixer} />
+          <Image
+            ml={{
+              base: 0,
+              sm: 0,
+              md: 0,
+              lg: 10,
+            }}
+            mt={{
+              base: 0,
+              sm: 0,
+              md: 0,
+              lg: 8,
+            }}
+            h={"70%"}
+            src={Pixer}
+          />
         </Circle>
         <Circle
-          size={350}
+          size={{
+            base: 150,
+            sm: 150,
+            md: 250,
+            lg: 350,
+          }}
           bg="#A6CDC6"
-          ml={-20}
-          mt={-20}
+          ml={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
+          mt={{
+            base: 0,
+            sm: 0,
+            md: 0,
+            lg: -20,
+          }}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
           boxShadow={"md"}
         ></Circle>
+        <Text
+          display={{ base: "flex", sm: "flex", md: "flex", lg: "none" }}
+          cursor="pointer"
+          color="#16404D"
+          bg="#A6CDC6"
+          ml={5}
+          p={2}
+          borderRadius={10}
+          fontWeight="bold"
+          textAlign="center"
+          _hover={{ bg: "#96BAB3" }}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </Text>
         <Flex
           ml={-20}
+          display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           bg="#A6CDC6"
           borderRadius={50}
           p={5}
@@ -298,7 +359,12 @@ export default function Search() {
         </VStack>
       ) : (
         <Grid
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
           gap={10}
           m="auto"
           w="80%"

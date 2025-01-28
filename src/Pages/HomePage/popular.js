@@ -49,13 +49,19 @@ export default function Popular() {
     <Box minH="100vh" p={4}>
       <Flex align="center" justify="center" direction="column" gap={20}>
         <Text marginTop="50px" color="#16404D" fontSize="3xl" fontWeight="bold">
-          Top 10 Photo
+          Most 10 Popular Inspired Images
         </Text>
         <Grid
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
           gapX={100}
           gapY={10}
           textAlign="center"
+          autoFlow={true}
         >
           {MakeShow(popData)}
         </Grid>
