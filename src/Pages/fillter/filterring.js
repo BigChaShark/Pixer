@@ -56,6 +56,14 @@ export default function Filltering() {
       saturation: 1,
     },
   ];
+  const warmSet = { r: 1.4, g: 1.2, b: 0.8 };
+  const coldSet = { r: 0.8, g: 1, b: 1.5 };
+  const bwSet = {
+    brightness: 1,
+    greyscale: 1,
+    contrast: 1.3,
+    saturation: 1,
+  };
 
   //Pop up variable
   const [data, dataSet] = useState([]);
@@ -85,6 +93,21 @@ export default function Filltering() {
   const handleSetRGB = () => {
     setRgbShow(rgbSample);
     setRgbFilter(rgbSample);
+  };
+
+  const handleSetWarm = () => {
+    setRgbShow(warmSet);
+    setRgbFilter(warmSet);
+  };
+
+  const handleSetCold = () => {
+    setRgbShow(coldSet);
+    setRgbFilter(coldSet);
+  };
+
+  const handleSetBW = () => {
+    setFilterSettings(bwSet);
+    setFilterShow(bwSet);
   };
 
   //Upload
@@ -265,7 +288,6 @@ export default function Filltering() {
     }
   };
   const saveToDB = async (event, path) => {
-    event.preventDefault();
     try {
       const name = prompt("Project Name");
       const projectData = {
@@ -581,6 +603,7 @@ export default function Filltering() {
           backgroundColor="rgba(0, 0, 0, 0.5)"
           alignItems="center"
           justifyContent="center"
+          zIndex={99}
         >
           <Box
             bg={"#fdf8e5"}
@@ -685,6 +708,38 @@ export default function Filltering() {
             gap={10}
             direction={"column"}
           >
+            <Flex gap={5} align="center" justify="center">
+              <Text color="#16404D" fontWeight="bold" fontSize={"2xl"}>
+                Filter set :
+              </Text>
+              <Button
+                size="lg"
+                bg="#16404D"
+                color="#DDA853"
+                fontWeight="bold"
+                onClick={handleSetWarm}
+              >
+                Warm style
+              </Button>
+              <Button
+                size="lg"
+                bg="#16404D"
+                color="#DDA853"
+                fontWeight="bold"
+                onClick={handleSetCold}
+              >
+                cold style
+              </Button>
+              <Button
+                size="lg"
+                bg="#16404D"
+                color="#DDA853"
+                fontWeight="bold"
+                onClick={handleSetBW}
+              >
+                Black & White
+              </Button>
+            </Flex>
             <Flex
               gap={5}
               bg="#A6CDC6"

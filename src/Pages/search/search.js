@@ -54,8 +54,8 @@ export default function Search() {
   const fetchData = async (
     maxRetries = 5,
     delay = 2000,
-    q = "yellow+flowers",
-    color = "yellow",
+    q = "",
+    color = "",
     img_type = "all",
     page = 1
   ) => {

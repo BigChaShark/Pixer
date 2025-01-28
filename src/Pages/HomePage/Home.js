@@ -406,7 +406,7 @@ export default function Home() {
                 transition="all 0.3s"
               >
                 Save and access your edited images anytime. Revisit, continue
-                editing, or download with ease."
+                editing, or download with ease.
               </Card.Description>
             </Card.Body>
           </Card.Root>
