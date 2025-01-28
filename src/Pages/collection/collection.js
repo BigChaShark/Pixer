@@ -7,21 +7,31 @@ import {
   Grid,
   Circle,
   Button,
+  Spinner,
   Image,
+  VStack,
 } from "@chakra-ui/react";
 import CollectionShow from "./collectionShow";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Pixer, colIcon } from "../../Logo/logo";
 export default function Collection() {
+  //*******Variable*********//
   //Data
   const [data, dataSet] = useState([]);
+  const [onLoad, setOnLoad] = useState(false);
+  //*******Function*********//
   const getLocalData = async () => {
+    setOnLoad(true);
     try {
       const res = await axios.get("http://localhost:3001/img");
       dataSet(res.data);
     } catch (error) {
       return console.log("Error" + error);
+    } finally {
+      setTimeout(() => {
+        setOnLoad(false);
+      }, 1000);
     }
   };
   useEffect(() => {
@@ -208,21 +218,28 @@ export default function Collection() {
       <Text color="#16404D" fontWeight="bold" fontSize="3xl">
         My Collection
       </Text>
-      <Grid
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(2, 1fr)",
-          md: "repeat(3, 1fr)",
-          lg: "repeat(4, 1fr)",
-        }}
-        gap={10}
-        m="auto"
-        w="80%"
-        h="auto"
-        mt={10}
-      >
-        {makeShow(data)}
-      </Grid>
+      {onLoad ? (
+        <VStack colorPalette="teal">
+          <Spinner color="colorPalette.600" />
+          <Text color="colorPalette.600">Loading...</Text>
+        </VStack>
+      ) : (
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
+          gap={10}
+          m="auto"
+          w="80%"
+          h="auto"
+          mt={10}
+        >
+          {makeShow(data)}
+        </Grid>
+      )}
       <Box mt={10} display="flex" justifyContent="center">
         <Button
           bg="#16404D"

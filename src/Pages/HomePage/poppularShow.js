@@ -46,7 +46,7 @@ export default function PopularShow({ id, img, imgL }) {
           _hover={{
             transition: "all 0.3s",
             maxH: "none",
-            transform: "scale(3)",
+            transform: "scale(2)",
             position: "absolute",
             zIndex: 99,
             boxShadow: "md",
@@ -62,16 +62,27 @@ export default function PopularShow({ id, img, imgL }) {
         <Card.Footer gap={2}>
           <Text
             cursor="pointer"
-            color="#16404D"
-            bg="#A6CDC6"
+            color="#DDA853"
+            bg="#16404D"
             p={2}
             borderRadius={10}
             fontWeight="bold"
             textAlign="center"
-            _hover={{ bg: "#96BAB3" }}
             onClick={addCollection}
           >
             Add to Collect
+          </Text>
+          <Text
+            onClick={() => window.open(imgL, "_blank")}
+            cursor="pointer"
+            color="#DDA853"
+            bg="#16404D"
+            p={2}
+            borderRadius={10}
+            fontWeight="bold"
+            textAlign="center"
+          >
+            Look photo
           </Text>
         </Card.Footer>
       </Card.Root>

@@ -29,15 +29,19 @@ export default function SearchShow({ id, img }) {
       overflow={isHover ? "none" : "hidden"}
       boxShadow="md"
       borderRadius={10}
-      h={80}
+      h={"100%"}
+      alignItems={"center"}
       position={"relative"}
     >
       <Image
+        w={"100%"}
+        maxH={200}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         _hover={{
           transition: "all 0.3s",
           maxH: "none",
+          maxW: "80%",
           transform: "scale(2)",
           position: "absolute",
           zIndex: 99,
@@ -45,7 +49,6 @@ export default function SearchShow({ id, img }) {
           borderRadius: 50,
         }}
         src={`${img}`}
-        h="75%"
       />
       <Card.Body>
         <Card.Title
@@ -60,8 +63,15 @@ export default function SearchShow({ id, img }) {
           color="#DDA853"
           fontWeight="bold"
         >
-          {" "}
           Add to Collect
+        </Button>
+        <Button
+          onClick={() => window.open(img, "_blank")}
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Look photo
         </Button>
       </Card.Footer>
     </Card.Root>

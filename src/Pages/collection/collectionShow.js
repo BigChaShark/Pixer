@@ -79,6 +79,14 @@ export default function CollectionShow({ dlt, id }) {
         >
           Delete
         </Button>
+        <Button
+          onClick={() => window.open(linkImg, "_blank")}
+          bg="#16404D"
+          color="#DDA853"
+          fontWeight="bold"
+        >
+          Look photo
+        </Button>
       </Card.Footer>
     </Card.Root>
   );
