@@ -65,7 +65,7 @@ app.listen(PORT, () => {
 });
 
 const jsonServer = require("json-server");
-const cors = require("cors");
+const cors2 = require("cors");
 
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
@@ -73,7 +73,7 @@ const middlewares = jsonServer.defaults();
 
 // เพิ่ม middleware สำหรับ CORS
 server.use(
-  cors({
+  cors2({
     origin: "*", // หรือกำหนด origin เป็น URL ของ Vercel เช่น 'https://your-vercel-domain.vercel.app'
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
