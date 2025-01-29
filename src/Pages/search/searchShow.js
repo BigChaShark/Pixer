@@ -47,7 +47,7 @@ export default function SearchShow({ id, img }) {
         onMouseLeave={() => setIsHover(false)}
         _hover={{
           transition: "all 0.3s",
-          maxH: "none",
+          maxH: "80%",
           maxW: "80%",
           transform: "scale(2)",
           position: "absolute",

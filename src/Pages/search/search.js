@@ -57,7 +57,7 @@ export default function Search() {
     delay = 2000,
     q = "",
     color = "",
-    img_type = "all",
+    img_type = "",
     page = 1
   ) => {
     let attempts = 0;
@@ -391,7 +391,7 @@ export default function Search() {
               inputValue,
               selectedColorsOption,
               selectedImgTypeOption,
-              page
+              e.page
             );
           }}
         >
