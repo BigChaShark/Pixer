@@ -11,6 +11,7 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import CollectionShow from "./collectionShow";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ export default function Collection() {
   const [data, dataSet] = useState([]);
   const [onLoad, setOnLoad] = useState(false);
   //*******Function*********//
+
   const getLocalData = async () => {
     setOnLoad(true);
     try {
@@ -45,6 +47,10 @@ export default function Collection() {
         async (x) => await axios.delete(`http://localhost:3001/img/${x.id}`)
       );
       await Promise.all(a);
+      successToast(
+        "Delete All collection",
+        "Succesfully delete all image from collection"
+      );
       await getLocalData();
     } catch (error) {
       console.log("error" + error);
@@ -54,6 +60,10 @@ export default function Collection() {
     if (id) {
       try {
         await axios.delete(`http://localhost:3001/img/${id}`);
+        successToast(
+          "Delete collection",
+          "Succesfully delete image from collection"
+        );
         await getLocalData();
       } catch (error) {
         console.log("error" + error);

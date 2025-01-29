@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Button, Card, Image } from "@chakra-ui/react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 
 export default function SearchShow({ id, img }) {
   //*******Variable*********//
@@ -14,9 +15,15 @@ export default function SearchShow({ id, img }) {
           await axios.post("http://localhost:3001/img", {
             id: id,
           });
-          alert("Add to collection");
+          successToast(
+            "Save to Collection",
+            "Succesfully save image to collection"
+          );
         } else {
-          alert("it same you have now");
+          warningToast(
+            "Same collection!!",
+            "You already have this image in collection"
+          );
         }
       });
     } catch (error) {

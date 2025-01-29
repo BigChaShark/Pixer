@@ -17,6 +17,7 @@ import {
 } from "../../components/ui/number-input";
 import axios from "axios";
 import React, { useState } from "react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import "cropperjs/dist/cropper.css";
 export default function Slice() {
   //*******Variable*********//
@@ -45,7 +46,7 @@ export default function Slice() {
       const imageUrl = URL.createObjectURL(response.data);
       setImage(imageUrl);
     } catch (error) {
-      alert("can't upload : " + error.message);
+      errorToast("Error to upload", error.message);
     }
   };
 

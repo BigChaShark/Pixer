@@ -1,22 +1,30 @@
 import { Text, VStack, Card, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 export default function PopularShow({ id, img, imgL }) {
   //*******Variable*********//
   const [isHover, setIsHover] = useState(false);
 
   //*******Funtion*********//
+
   const addCollection = async () => {
     try {
       await axios.get("http://localhost:3001/img").then(async (res) => {
         const isFound = res.data.some((x) => x.id === id);
         if (!isFound) {
-          alert("Done");
+          successToast(
+            "Save to Collection",
+            "Succesfully save image to collection"
+          );
           await axios.post("http://localhost:3001/img", {
             id: id,
           });
         } else {
-          alert("It same you have now");
+          warningToast(
+            "Same collection!!",
+            "You already have this image in collection"
+          );
         }
       });
     } catch (error) {

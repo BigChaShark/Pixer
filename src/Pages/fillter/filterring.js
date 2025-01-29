@@ -12,12 +12,17 @@ import {
   Circle,
   Button,
   Separator,
+  Input,
 } from "@chakra-ui/react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import { Pixer, filterIcon, myProIcon } from "../../Logo/logo";
 export default function Filltering() {
   //*******Variable*********//
   //Navigate
   const navigate = useNavigate();
+
+  //Project
+  const [projectName, setProjectName] = useState("");
 
   //Location
   const location = useLocation();
@@ -70,6 +75,7 @@ export default function Filltering() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   //*******Funtion*********//
+
   //Download
   const handleDownLoad = () => {
     const canvas = canvasRef.current;
@@ -266,7 +272,7 @@ export default function Filltering() {
   const handleUploadToCom = async (event) => {
     event.preventDefault();
     if (!fSrc) {
-      alert("Select an image first");
+      errorToast("image not found", "Select an image first");
       return;
     }
     const formData = new FormData();
@@ -284,12 +290,13 @@ export default function Filltering() {
       saveToDB(event, response.data.path);
     } catch (error) {
       console.error(error);
-      alert("Error uploading image");
+      errorToast("Error", "Error uploading image");
     }
   };
   const saveToDB = async (event, path) => {
+    event.preventDefault();
     try {
-      const name = prompt("Project Name");
+      const name = projectName || "Unnamed Project";
       const projectData = {
         id: Date.now(),
         image: path,
@@ -299,10 +306,10 @@ export default function Filltering() {
         filter: filterSettings,
       };
       await axios.post("http://localhost:3001/project", projectData);
-      alert("Saved to My Projects");
+      successToast("Save to project", "Succesfully save to project");
     } catch (error) {
       console.error(error);
-      alert("Error saving to My Projects");
+      errorToast("Error", "Error saving to projects");
     }
   };
 
@@ -1066,7 +1073,14 @@ export default function Filltering() {
               </Flex>
               <Button onClick={handleResetFill}>Reset</Button>
             </Flex>
-            <Flex gap={5}>
+            <Flex gap={5} align="center">
+              <Input
+                color="#16404D"
+                placeholder="Project name"
+                value={projectName}
+                w={300}
+                onChange={(e) => setProjectName(e.target.value)}
+              />
               <Button
                 size="lg"
                 bg="#16404D"

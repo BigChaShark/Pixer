@@ -7,7 +7,13 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "Infinity" }));
+app.use(express.urlencoded({ limit: "Infinity", extended: true }));
+app.use((req, res, next) => {
+  req.setTimeout(0);
+  res.setTimeout(0);
+  next();
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -23,7 +29,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+});
 
 app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {

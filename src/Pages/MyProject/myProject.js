@@ -12,6 +12,7 @@ import {
   Card,
   Image,
 } from "@chakra-ui/react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import { Pixer, myProIcon } from "../../Logo/logo";
 export default function MyProject() {
   //*******Variable*********//
@@ -42,12 +43,12 @@ export default function MyProject() {
     }
   };
   const deleteFile = async (path, id) => {
-    if (window.confirm("Are you sure you want to delete this image?")) {
+    if (window.confirm("Are you sure you want to delete this project?")) {
       axios
         .post("http://localhost:5000/delete", { path: path })
         .then(async () => {
           await axios.delete(`http://localhost:3001/project/${id}`);
-          alert("Image deleted successfully!");
+          successToast("Delete project", "Project deleted successfully!");
           fetchProjects();
         })
         .catch((error) => {

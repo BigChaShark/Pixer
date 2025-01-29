@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Box, Flex, Icon, Text, Circle, Button, Input } from "@chakra-ui/react";
 import { Pixer, cutIcon } from "../../Logo/logo";
 import Cropper from "react-cropper";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import "cropperjs/dist/cropper.css";
 export default function Cut() {
   //*******Variable*********//
@@ -41,7 +42,7 @@ export default function Cut() {
       setImage(imageUrl);
       setImageSize({ width: imageUrl.width, height: imageUrl.height });
     } catch (error) {
-      alert("can't upload : " + error.message);
+      errorToast("Error to upload", error.message);
     }
   };
 

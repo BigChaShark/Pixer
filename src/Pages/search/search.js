@@ -16,6 +16,7 @@ import {
   Spinner,
   Image,
 } from "@chakra-ui/react";
+import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import { Pixer, findIcon, colIcon } from "../../Logo/logo";
 import {
   PaginationNextTrigger,
@@ -74,7 +75,7 @@ export default function Search() {
 
           return;
         } else {
-          window.alert("No RS pleas type AG");
+          warningToast("Search not found", "please try again");
           return;
         }
       } catch (err) {

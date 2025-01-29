@@ -41,7 +41,6 @@ export default function CollectionShow({ dlt, id }) {
     <Card.Root
       overflow={isHover ? "none" : "hidden"}
       boxShadow="md"
-      bg="#A6CDC6"
       borderRadius={10}
       h={"100%"}
       alignItems={"center"}
@@ -52,21 +51,21 @@ export default function CollectionShow({ dlt, id }) {
         maxH={200}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        src={linkImg}
         _hover={{
           transition: "all 0.3s",
           maxH: "none",
-          maxW: "60%",
+          maxW: "80%",
           transform: "scale(2)",
           position: "absolute",
           zIndex: 99,
           boxShadow: "md",
           borderRadius: 50,
         }}
+        src={`${linkImg}`}
       />
       <Card.Body>
         <Card.Title
-          color="#16404D"
+          color="white"
           fontWeight="bold"
         >{`Image : ${id}`}</Card.Title>
       </Card.Body>
