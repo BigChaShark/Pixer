@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import { Pixer, myProIcon } from "../../Logo/logo";
+import db from "../../db";
 export default function MyProject() {
   //*******Variable*********//
   const [projects, setProjects] = useState([]);
@@ -24,10 +25,10 @@ export default function MyProject() {
   const handleEditProject = (project) => {
     navigate("/fillter", { state: { project } });
   };
-  const handleClickIDDelete = async (id, img) => {
+  const handleClickIDDelete = async (id) => {
     if (id) {
       try {
-        await deleteFile(img, id);
+        await deleteFile(id);
       } catch (error) {
         console.log("error" + error);
       }
@@ -36,24 +37,22 @@ export default function MyProject() {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/project");
-      setProjects(response.data);
+      const res = await db.project.toArray();
+      setProjects(res);
     } catch (error) {
       console.error(error);
     }
   };
-  const deleteFile = async (path, id) => {
+  const deleteFile = async (id) => {
     if (window.confirm("Are you sure you want to delete this project?")) {
-      axios
-        .post("http://localhost:5000/delete", { path: path })
-        .then(async () => {
-          await axios.delete(`http://localhost:3001/project/${id}`);
-          successToast("Delete project", "Project deleted successfully!");
-          fetchProjects();
-        })
-        .catch((error) => {
-          console.error("Error deleting image:", error);
-        });
+      if (id) {
+        await db.project.delete(id);
+        await fetchProjects();
+        successToast(
+          "Delete collection",
+          "Succesfully delete image from collection"
+        );
+      }
     }
   };
 
@@ -267,7 +266,7 @@ export default function MyProject() {
                 color="#DDA853"
                 fontWeight="bold"
                 onClick={() => {
-                  handleClickIDDelete(project.id, project.image);
+                  handleClickIDDelete(project.id);
                 }}
               >
                 Delete

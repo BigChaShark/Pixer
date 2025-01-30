@@ -16,6 +16,7 @@ import CollectionShow from "./collectionShow";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Pixer, colIcon } from "../../Logo/logo";
+import db from "../../db";
 export default function Collection() {
   //*******Variable*********//
   //Data
@@ -26,8 +27,8 @@ export default function Collection() {
   const getLocalData = async () => {
     setOnLoad(true);
     try {
-      const res = await axios.get("http://localhost:3001/img");
-      dataSet(res.data);
+      const res = await db.images.toArray();
+      dataSet(res);
     } catch (error) {
       return console.log("Error" + error);
     } finally {
@@ -43,31 +44,32 @@ export default function Collection() {
   //Delete
   const handleDeleteAll = async () => {
     try {
-      let a = data.map(
-        async (x) => await axios.delete(`http://localhost:3001/img/${x.id}`)
-      );
-      await Promise.all(a);
+      await db.images.clear();
+      await getLocalData();
       successToast(
         "Delete All collection",
         "Succesfully delete all image from collection"
       );
-      await getLocalData();
     } catch (error) {
-      console.log("error" + error);
+      console.error(error);
+      errorToast("Error", `${error}`);
     }
   };
   const handleClickIDDelete = async (id) => {
-    if (id) {
-      try {
-        await axios.delete(`http://localhost:3001/img/${id}`);
+    try {
+      if (id) {
+        await db.images.delete(id);
+        await getLocalData();
         successToast(
           "Delete collection",
           "Succesfully delete image from collection"
         );
-        await getLocalData();
-      } catch (error) {
-        console.log("error" + error);
+      } else {
+        errorToast("Error", `Don't have this id`);
       }
+    } catch (error) {
+      console.error(error);
+      errorToast("Error", `${error}`);
     }
   };
 

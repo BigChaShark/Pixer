@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
 import { Pixer, filterIcon, myProIcon } from "../../Logo/logo";
+import db from "../../db";
 export default function Filltering() {
   //*******Variable*********//
   //Navigate
@@ -269,43 +270,43 @@ export default function Filltering() {
   };
 
   //Save Project
-  const handleUploadToCom = async (event) => {
-    event.preventDefault();
-    if (!fSrc) {
-      errorToast("image not found", "Select an image first");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("image", fSrc);
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      saveToDB(event, response.data.path);
-    } catch (error) {
-      console.error(error);
-      errorToast("Error", "Error uploading image");
-    }
-  };
+  // const handleUploadToCom = async (event) => {
+  //   event.preventDefault();
+  //   if (!fSrc) {
+  //     errorToast("image not found", "Select an image first");
+  //     return;
+  //   }
+  //   const formData = new FormData();
+  //   formData.append("image", fSrc);
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/upload",
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     saveToDB(event, response.data.path);
+  //   } catch (error) {
+  //     console.error(error);
+  //     errorToast("Error", "Error uploading image");
+  //   }
+  // };
   const saveToDB = async (event, path) => {
     event.preventDefault();
     try {
       const name = projectName || "Unnamed Project";
       const projectData = {
         id: Date.now(),
-        image: path,
+        image: imageSrc,
         name: `Project : ${name}`,
         date: new Date().toISOString(),
         rgb: rgbFilter,
         filter: filterSettings,
       };
-      await axios.post("http://localhost:3001/project", projectData);
+      await db.project.put(projectData);
       successToast("Save to project", "Succesfully save to project");
     } catch (error) {
       console.error(error);
@@ -338,8 +339,8 @@ export default function Filltering() {
   const togglePopup = () => setIsPopupVisible(!isPopupVisible);
   const getLocalData = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/img");
-      dataSet(res.data);
+      const res = await db.images.toArray();
+      dataSet(res);
     } catch (error) {
       return console.log("Error" + error);
     }
@@ -1086,7 +1087,7 @@ export default function Filltering() {
                 bg="#16404D"
                 color="#DDA853"
                 fontWeight="bold"
-                onClick={handleUploadToCom}
+                onClick={saveToDB}
               >
                 Save to My Projects
               </Button>

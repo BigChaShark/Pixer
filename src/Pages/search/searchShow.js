@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Card, Image } from "@chakra-ui/react";
 import { successToast, warningToast, errorToast } from "../../Toast/toastShow";
+import db from "../../db";
 
 export default function SearchShow({ id, img }) {
   //*******Variable*********//
@@ -9,25 +10,21 @@ export default function SearchShow({ id, img }) {
   //*******Funtion*********//
   const addCollection = async () => {
     try {
-      await axios.get("http://localhost:3001/img").then(async (res) => {
-        const isFound = res.data.some((x) => x.id === id);
-        if (!isFound) {
-          await axios.post("http://localhost:3001/img", {
-            id: id,
-          });
-          successToast(
-            "Save to Collection",
-            "Succesfully save image to collection"
-          );
-        } else {
-          warningToast(
-            "Same collection!!",
-            "You already have this image in collection"
-          );
-        }
-      });
+      const isFound = await db.images.get(id);
+      if (!isFound) {
+        await db.images.put({ id, data: img });
+        successToast(
+          "Save to Collection",
+          "Succesfully save image to collection"
+        );
+      } else {
+        warningToast(
+          "Same collection!!",
+          "You already have this image in collection"
+        );
+      }
     } catch (error) {
-      console.log("Error" + error);
+      errorToast("Error", `${error}`);
     }
   };
 
